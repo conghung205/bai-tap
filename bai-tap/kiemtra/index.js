@@ -27,6 +27,7 @@ const orders = [
 // ============ Bài làm ====================
 // Bài 1:
 function getEmployeesAreWorking(employees) {
+    if (!employees || !employees.length) return [];
     return employees.filter((employee) => employee.status === "working");
 }
 
@@ -34,6 +35,7 @@ function getEmployeesAreWorking(employees) {
 
 // Bài 2
 function getOldestEmployee(employees) {
+    if (!employees || !employees.length) return null;
     let oldestEmployee = employees[0];
 
     for (let i = 1; i < employees.length; i++) {
@@ -51,6 +53,8 @@ function getOldestEmployee(employees) {
 
 // Bài 3
 function getCheapestProduct(products) {
+    if (!products || !products.length) return null;
+
     let cheapestProduct = products[0];
 
     for (let i = 1; i < products.length; i++) {
@@ -67,6 +71,8 @@ function getCheapestProduct(products) {
 
 // Bài 4
 function getBestSellingProductOfQuantity(products, orders) {
+    if (!products || !products.length || !orders || !orders.length) return null;
+
     const quantityMap = {};
 
     for (let i = 0; i < orders.length; i++) {
@@ -102,6 +108,8 @@ function getBestSellingProductOfQuantity(products, orders) {
 
 // Bài 5
 function getHighestRevenueProductOfAll(products, orders) {
+    if (!products || !products.length || !orders || !orders.length) return null;
+
     const productPriceMap = {};
     for (let i = 0; i < products.length; i++) {
         productPriceMap[products[i].id] = products[i].price;
@@ -144,6 +152,8 @@ function getHighestRevenueProductOfAll(products, orders) {
 
 // Bài 6
 function getBestSellingEmployeeOfQuantity(employees, orders) {
+    if (!employees || !employees.length || !orders || !orders.length)
+        return null;
     const employeeQuantityMap = {};
 
     for (let i = 0; i < orders.length; i++) {
@@ -320,10 +330,10 @@ function getEmployeesWithRevenue(employees, products, orders) {
 }
 // Bài 9:
 function getEmployeesCommission(employees, products, orders) {
-    // Gọi hàm gốc để lấy danh sách đã có doanh thu
+    if (!employees || !employees.length) return [];
+
     const list = getEmployeesWithRevenue(employees, products, orders);
 
-    // Duyệt qua để tính thêm tiền hoa hồng cho từng người
     for (let i = 0; i < list.length; i++) {
         list[i].commission = list[i].totalRevenue * 0.03;
     }
@@ -358,6 +368,7 @@ function quickSortRevenue(arr) {
 }
 
 function sortEmployeesByRevenueDescending(employees, products, orders) {
+    if (!employees.length) return [];
     const employeesWithRevenue = getEmployeesWithRevenue(
         employees,
         products,
