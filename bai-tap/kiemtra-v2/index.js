@@ -80,19 +80,14 @@ function findBestSellingProduct(products, orders) {
         productMap[product.id] = product;
     }
 
-    // loop qua để lấy productId làm key và cộng dồn quantity cho productId đó
     const quantityMap = {};
     for (let i = 0; i < orders.length; i++) {
         const order = orders[i];
 
-        // nếu mà quantityMap[order.productId] chưa có giá trị thì cho nó có giá trị là 0
-        // và cộng với quantity, nếu có rồi thì lấy giá trị đó cộng với quantity
-        // => được quantity cộng dồn
         quantityMap[order.productId] =
             (quantityMap[order.productId] || 0) + order.quantity;
     }
 
-    // Tìm productId có số lượng lớn nhất
     let bestProductId = null;
     let maxQuantity = 0;
 
@@ -119,7 +114,6 @@ function findHighestRevenueProduct(products, orders) {
         productMap[product.id] = product;
     }
 
-    // loop qua để lấy productId làm key và cộng dồn revenue cho productId đó
     const revenueMap = {};
     for (let i = 0; i < orders.length; i++) {
         const order = orders[i];
@@ -132,7 +126,6 @@ function findHighestRevenueProduct(products, orders) {
         revenueMap[productId] = (revenueMap[productId] || 0) + revenue;
     }
 
-    // Tìm productId có doanh thu cao nhất
     let bestProductId = null;
     let maxRevenue = 0;
 
@@ -162,19 +155,14 @@ function findEmployeeHighestSellingProduct(employees, orders) {
         employeeMap[employee.id] = employee;
     }
 
-    // loop qua để lấy employeeId làm key và cộng dồn quantity cho employeeId đó
     const quantityMap = {};
     for (let i = 0; i < orders.length; i++) {
         const order = orders[i];
 
-        // nếu mà quantityMap[order.employeeId] chưa có giá trị thì cho nó có giá trị là 0
-        // và cộng với quantity, nếu có rồi thì lấy giá trị đó cộng với quantity
-        // => được quantity cộng dồn
         quantityMap[order.employeeId] =
             (quantityMap[order.employeeId] || 0) + order.quantity;
     }
 
-    // Tìm employeeId có số lượng lớn nhất
     let bestEmployeeId = null;
     let maxQuantity = 0;
 
@@ -192,8 +180,6 @@ function findEmployeeHighestSellingProduct(employees, orders) {
     };
 }
 
-// console.log(findEmployeeHighestSellingProduct(employees, orders));
-
 // Bài 7: Tìm ra nhân viên có doanh thu cao nhất
 function findEmployeeHighestRevenue(employees, orders, products) {
     if (!employees.length) return null;
@@ -210,19 +196,14 @@ function findEmployeeHighestRevenue(employees, orders, products) {
         productMap[product.id] = product;
     }
 
-    // loop qua để lấy employeeId làm key và cộng dồn revenue cho employeeId đó
     const revenueMap = {};
     for (let i = 0; i < orders.length; i++) {
         const order = orders[i];
         const quantity = order.quantity;
         const price = productMap[order.productId].price;
 
-        // tính revenue
         const revenue = price * quantity;
 
-        // nếu mà quantityMap[order.employeeId] chưa có giá trị thì cho nó có giá trị là 0
-        // và cộng với quantity, nếu có rồi thì lấy giá trị đó cộng với revenue
-        // => được revenue cộng dồn
         revenueMap[order.employeeId] =
             (revenueMap[order.employeeId] || 0) + revenue;
     }
@@ -245,8 +226,6 @@ function findEmployeeHighestRevenue(employees, orders, products) {
     };
 }
 
-// console.log(findEmployeeHighestRevenue(employees, orders, products));
-
 // Bài 8: Tìm ra sản phẩm bán có doanh thu cao nhất của mọi nhân viên
 function findHighestRevenueProductAllEmployees(products, orders, employees) {
     if (!products.length || !orders.length || !employees.length) return [];
@@ -268,29 +247,21 @@ function findHighestRevenueProductAllEmployees(products, orders, employees) {
         const quantity = order.quantity;
         const price = productMap[order.productId].price;
 
-        // tính revenue
         const revenue = price * quantity;
 
-        // nếu employeeId chưa tồn tại trong revenueMap
-        // thì khởi tạo cho employeeId là {} rỗng
         revenueMap[order.employeeId] = revenueMap[order.employeeId] || {};
 
-        //cộng dồn doanh thu theo từng product của từng employee
-        // nếu product chưa có doanh thu thì lấy 0 rồi cộng thêm revenue
         revenueMap[order.employeeId][order.productId] =
             (revenueMap[order.employeeId][order.productId] || 0) + revenue;
     }
 
-    // Tìm sản phẩm có doanh thu cao nhất của mọi nhân viên
     const result = [];
 
-    // loop để lấy từng nhân viên
     for (const employeeId in revenueMap) {
         const employeeProductsRevenue = revenueMap[employeeId];
         let maxRevenue = 0;
         let bestProductId = null;
 
-        // loop để lấy từng sản phẩm của nhân viên đó và tìm revenue lớn nhất
         for (const productId in employeeProductsRevenue) {
             const revenue = employeeProductsRevenue[productId];
             if (revenue > maxRevenue) {
@@ -331,7 +302,6 @@ function calculateTotalRevenueForEmployees(employees, products, orders) {
         const quantity = order.quantity;
         const price = productMap[order.productId].price;
 
-        // tính revenue
         const revenue = price * quantity;
 
         revenueMap[order.employeeId] =
