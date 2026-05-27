@@ -112,8 +112,8 @@ function renderProducts(products) {
         </p>
         <p class="product-item-star">
             <i class="fa-solid fa-star"></i>
-            3.9
-            <span class="quantity-star">(120)</span>
+            ${product.rating.rate}
+            <span class="quantity-star">(${product.rating.count})</span>
         </p>
         <div class="product-item-footer">
             <p class="product-item-price">
