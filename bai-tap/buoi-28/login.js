@@ -25,6 +25,7 @@ async function handleLogin({ username, password }) {
         console.log(error);
     }
 }
+
 // handleLogin({ username: "emilys", password: "emilyspass" });
 
 // get elements
